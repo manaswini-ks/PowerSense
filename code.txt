@@ -1,0 +1,70 @@
+#include <Wire.h>          // Include the Wire library for I2C communication
+#include <RTClib.h>        // Include the RTClib library for DS1307 RTC module
+
+RTC_DS1307 rtc;            // Create an instance of the DS1307 RTC class
+
+void setup() {
+  Serial.begin(9600);      // Start serial communication
+  pinMode(A0, INPUT);      // Set A0 as input for current sensor 1 (Device 1)
+  pinMode(A1, INPUT);      // Set A1 as input for current sensor 2 (Device 2)
+  pinMode(A2, INPUT);      // Set A2 as input for voltage sensor 
+  Wire.begin();            // Initialize I2C communication
+  rtc.begin();             // Initialize RTC module
+
+  Serial.println("Index,Date,Time,Global_active_power,Global_reactive_power,Voltage,Global_intensity,Sub_metering_1,Sub_metering_2");
+}
+
+void loop() {
+  static int index = 0;
+
+  // Read analog values from sensors
+  int currentSensor1Value = analogRead(A0);
+  int currentSensor2Value = analogRead(A1);
+  int voltageSensorValue = analogRead(A2);
+
+  // Convert analog values to actual current and voltage values
+  double current1 = map(currentSensor1Value, 0, 1023, 0, 30)/0.63636;  // Assuming SCT-013 range is 0-30A (Device 1)
+  double current2 = map(currentSensor2Value, 0, 1023, 0, 20)/0.45454;  // Assuming SCT-013 range is 0-20A (Device 2)
+  double voltage = map(voltageSensorValue, 0, 1023, 0, 220)*2;  // Assuming ZMPT101B range is 0-220V
+  // Calculate individual global active powers
+  double active_power_device1 = current1 * voltage * 0.00095;  // Assuming resistive load (Device 1)
+  double active_power_device2 = current2 * voltage * 0.00095;  // Assuming resistive load (Device 2)
+  double reactive_power_device1 = current1 * voltage * 0.00031225;
+  double reactive_power_device2 = current2 * voltage * 0.00031225;
+  // Calculate total global active power
+  double Global_active_power = active_power_device1 + active_power_device2;
+  double Global_reactive_power = reactive_power_device1 + reactive_power_device2;
+
+  // Get current date and time from RTC
+  DateTime now = rtc.now();
+
+  // Display data on Serial Monitor
+  Serial.print(index++);  // Index
+  Serial.print(",");
+  Serial.print(now.day());  // Year
+  Serial.print("/");
+  Serial.print(now.month()); // Month
+  Serial.print("/");
+  Serial.print(now.year());   // Day
+  Serial.print(",");
+  Serial.print(now.hour());  // Hour
+  Serial.print(":");
+  Serial.print(now.minute()); // Minute
+  Serial.print(":");
+  Serial.print(now.second()); // Second
+  Serial.print(",");
+  Serial.print(Global_active_power);  // Total_global_active_power (Calculated)
+  Serial.print(",");
+  Serial.print(Global_reactive_power);  // Global_reactive_power (Placeholder)
+  Serial.print(",");
+  Serial.print(voltage);  // Voltage (Sensor 1)
+  Serial.print(",");
+  Serial.print(current1 + current2);  // Global_intensity (Sample calculation for total current)
+  Serial.print(",");
+  Serial.print(active_power_device1);  // Sub_metering_1 (Placeholder)
+  Serial.print(",");
+  Serial.print(active_power_device2);  // Sub_metering_2 (Placeholder)
+  Serial.println();
+
+  delay(1000);  // Delay between readings
+}
