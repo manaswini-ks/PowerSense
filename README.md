@@ -7,7 +7,6 @@ Alert sent on Telegram upon Anomaly Detection in Our dataset
 
 <img width="515" alt="image" src="https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/7ea27b56-23d1-47c5-ad15-b3ff6bbd0b24">
 
-
 Alert sent on Telegram upon Anomaly Detection in the Kaggle Dataset
 
 <img width="470" alt="image" src="https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/bab3f929-8830-46cd-a8d1-00c44699d7d2">
