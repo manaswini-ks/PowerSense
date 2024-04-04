@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title> Energy consumption monitor</title>
+      <link rel="stylesheet" href="style_for_EOM.css">
+      <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: white;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        p{
+          font-size: larger;
+        }
+      </style>
+    </head>
+
+    <body style="margin-right: 0px;">
+    <!-- Add the toggle button -->
+        <div class="toggle-btn" onclick="toggleSidebar()">&#9776; Click Here</div>
+
+        <div class="sidenav" id="sidebar">
+            <a href="Home page.html">Home Page</a>
+            <a href="graph_from_kaggle(1).html">Graphs from kaggle dataset</a>
+            <a href="graph _from_model.html">Graphs from model dataset</a>
+            <a href="https://web.telegram.org/k/#@powerpredsbot" target="_blank">Alerts</a>
+            <a href="cont_mem.html">Contact</a>
+        </div>
+
+        <div class="main">
+            <h1 class="eom">ENERGY CONSUMPTION MONITOR</h1>
+            <h1>Welcome to your energy consumption monitor!</h1>
+
+            <div class="container">
+              <p>Welcome to your personalized gateway to understanding and managing your energy usage. Our website is dedicated to empowering you with the knowledge and tools you need to take control of your energy consumption and make informed choices.</p>
+              <p>In a world where sustainability and efficiency are paramount, our website serves as a vital resource to help you become a more conscious energy consumer.</p>
+            </div>
+        </div>
+
+        <h1 style="margin-left: 250px ;">Features available</h1>
+        <div class="boxes">
+            <div class="box-description">
+              <div class="empty-space"></div>
+            </div>
+            <div class="feature-box">
+              <div class="box-title">Stay Informed in Real Time</div>
+                <div class="box-description">
+                <p>Visualise the power consumptions and the various correlations between voltage, reactive and active powers obtained from a sample data.</p>
+                <p>CLick here to View the graphs from the kaggle dataset</p> 
+                </div>
+                <button class="box-button"><a href="graph_from_kaggle(1).html" >Graph for Kaggle dataset</a> </button>
+            </div>
+
+            <div class="feature-box">
+              <div class="box-title">Alerts</div>
+                <div class="box-description">
+                  <p>Recieve Alerts on Telegram so you know when there are anomalies detected in your devices.</p>
+                  <p>Click here to view your Alerts. </p>
+                </div>
+                <button class="box-button"><a href="https://web.telegram.org/k/#@powerpredsbot" >Alerts</a></button>
+            </div>
+             
+            <div class="feature-box">
+              <div class="box-title">Graphs</div>
+              <div class="box-description">
+                <p>Visualise the data and predictions obtained for the consumptions of every device.</p>
+                <p>CLick here to view the graphs from the model dataset.</p>    
+              </div>
+              <button class="box-button"><a href="graph _from_model.html">Graph for Model Dataset</a> </button>
+            </div>
+        </div>
+    <script>
+  // JavaScript function to toggle sidebar visibility
+      function toggleSidebar() {
+        var sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("collapsed");
+      }
+    </script>
+  </body>
+</html> 
+
