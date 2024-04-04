@@ -30,14 +30,9 @@ The project's objectives are
   
   Alert sent on Telegram upon Anomaly Detection in the Kaggle Dataset
 
-![image](https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/6df45775-e2e6-4bcb-8b3b-be899b4afcb4)
+  ![image](https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/6df45775-e2e6-4bcb-8b3b-be899b4afcb4)
 
 Alert sent on Telegram upon Anomaly Detection in Our dataset
+
 ![image](https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/dbb5d499-b0c3-4958-9ef5-ce37f6ea573a)
 
-
-<img width="515" alt="image" src="https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/7ea27b56-23d1-47c5-ad15-b3ff6bbd0b24">
-
-Alert sent on Telegram upon Anomaly Detection in the Kaggle Dataset
-
-<img width="470" alt="image" src="https://github.com/manaswini-ks/Power_Monitoring/assets/113985060/bab3f929-8830-46cd-a8d1-00c44699d7d2">
