@@ -1,11 +1,12 @@
 import serial
 import csv
 from datetime import datetime
+import time
 import firebase_admin
 from firebase_admin import credentials, storage
 
 # Initialize Firebase
-cred = credentials.Certificate(r'C:\Users\Lekhana\OneDrive\Attachments\Desktop\college\IOT_EL\key.json.json')  # Use the correct path to your Firebase JSON key file
+cred = credentials.Certificate(r'C:\Users\Lekhana\OneDrive\Attachments\Desktop\college\IOT_EL\key.json')  # Use the correct path to your Firebase JSON key file
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'power-sense-81863.appspot.com'  # Replace with your Firebase Storage bucket name
 })
@@ -22,6 +23,8 @@ csv_writer = csv.writer(csv_file)
 csv_writer.writerow(['Index', 'Date', 'Time', 'Device', 'Current', 'Voltage'])  # Add more headers as needed
 
 index = 0
+upload_interval = 60  # Interval in seconds for uploading the CSV file
+last_upload_time = time.time()
 
 try:
     while True:
@@ -47,6 +50,15 @@ try:
             print(f"Logged: {index}, {date_str}, {time_str}, {', '.join(data)}")
             
             index += 1
+        
+        # Check if it's time to upload the CSV file
+        current_time = time.time()
+        if current_time - last_upload_time >= upload_interval:
+            csv_file.flush()  # Ensure all data is written to the file
+            blob = bucket.blob('sensor_data.csv')  # Set the file path in the storage bucket
+            blob.upload_from_filename('sensor_data.csv')
+            print("CSV file uploaded to Firebase Storage.")
+            last_upload_time = current_time
 
 except KeyboardInterrupt:
     # Handle script interruption (e.g., Ctrl+C) gracefully
@@ -57,10 +69,11 @@ finally:
     csv_file.close()
     ser.close()
     
-    # Upload CSV file to Firebase Storage
+    # Final upload CSV file to Firebase Storage
     blob = bucket.blob('sensor_data.csv')  # Set the file path in the storage bucket
     blob.upload_from_filename('sensor_data.csv')
     print("CSV file uploaded to Firebase Storage.")
+
 
 
 # import serial
